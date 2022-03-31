@@ -1,7 +1,5 @@
 package ru.shishkin.translatorapp.service;
 
-//import org.apache.http.HttpEntity;
-
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.shishkin.translatorapp.api.yandex.exception.InvalidNumberLanguagesTranslateException;
 import ru.shishkin.translatorapp.api.yandex.request.TranslateRequestDTO;
-import ru.shishkin.translatorapp.api.yandex.request.YandexAPITranslateRequestDTO;
+import ru.shishkin.translatorapp.api.yandex.request.YandexApiTranslateRequestDTO;
 import ru.shishkin.translatorapp.api.yandex.response.TranslateResponseDto;
 import ru.shishkin.translatorapp.api.yandex.response.YandexApiTranslateResponseDto;
 import ru.shishkin.translatorapp.entity.QueryEntity;
@@ -21,7 +19,6 @@ import ru.shishkin.translatorapp.repository.TranslateRepo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @NoArgsConstructor
@@ -49,20 +46,19 @@ public class YandexTranslateService {
 
     public TranslateResponseDto translate(TranslateRequestDTO translateRequestDTO,
                                           QueryEntity queryEntity) throws InvalidNumberLanguagesTranslateException {
-        YandexAPITranslateRequestDTO yandexAPITranslateRequestDTO =
-                YandexAPITranslateRequestDTO.toYandexAPITranslateRequestDTO(translateRequestDTO);
+        YandexApiTranslateRequestDTO yandexAPITranslateRequestDTO =
+                YandexApiTranslateRequestDTO.toYandexAPITranslateRequestDTO(translateRequestDTO);
         YandexApiTranslateResponseDto yandexApiTranslateResponseDto = translateSourceWords(yandexAPITranslateRequestDTO);
 
         create(yandexAPITranslateRequestDTO, yandexApiTranslateResponseDto, queryEntity);
         return TranslateResponseDto.toTranslateResponseDto(yandexApiTranslateResponseDto);
     }
 
-    private YandexApiTranslateResponseDto translateSourceWords(YandexAPITranslateRequestDTO yandexAPITranslateRequestDTO) {
-        HttpEntity<YandexAPITranslateRequestDTO> httpEntity = new HttpEntity<>(yandexAPITranslateRequestDTO,
+    private YandexApiTranslateResponseDto translateSourceWords(YandexApiTranslateRequestDTO yandexAPITranslateRequestDTO) {
+        HttpEntity<YandexApiTranslateRequestDTO> httpEntity = new HttpEntity<>(yandexAPITranslateRequestDTO,
                 getRequestHeadersYandexTranslate());
-        YandexApiTranslateResponseDto response = restTemplate.postForObject(PATH, httpEntity,
+        return restTemplate.postForObject(PATH, httpEntity,
                 YandexApiTranslateResponseDto.class);
-        return response;
     }
 
     private HttpHeaders getRequestHeadersYandexTranslate() {
@@ -72,7 +68,7 @@ public class YandexTranslateService {
         return httpHeaders;
     }
 
-    private List<TranslateEntity> create(YandexAPITranslateRequestDTO requestDTO,
+    private List<TranslateEntity> create(YandexApiTranslateRequestDTO requestDTO,
                                          YandexApiTranslateResponseDto responseDto,
                                          QueryEntity queryEntity) {
         List<TranslateEntity> translateEntities = createEntities(requestDTO, responseDto, queryEntity);
@@ -81,7 +77,7 @@ public class YandexTranslateService {
     }
 
 
-    private List<TranslateEntity> createEntities(YandexAPITranslateRequestDTO requestDTO,
+    private List<TranslateEntity> createEntities(YandexApiTranslateRequestDTO requestDTO,
                                                  YandexApiTranslateResponseDto responseDto,
                                                  QueryEntity queryEntity) {
         List<String> sourceWords = requestDTO.getTexts();

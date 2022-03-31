@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class TranslateController {
     private TranslateService translateService;
-
     @PostMapping
     public ResponseEntity<String> translate(@RequestBody TranslateRequestDTO translateRequestDTO,
                                     HttpServletRequest httpServletRequest) {

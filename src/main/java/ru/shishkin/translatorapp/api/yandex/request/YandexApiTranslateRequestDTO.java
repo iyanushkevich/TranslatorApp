@@ -11,17 +11,17 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class YandexAPITranslateRequestDTO {
+public class YandexApiTranslateRequestDTO {
     private String sourceLanguageCode;
     private String targetLanguageCode;
     private List<String> texts;
 
-    public static YandexAPITranslateRequestDTO toYandexAPITranslateRequestDTO(TranslateRequestDTO translateRequestDTO)
+    public static YandexApiTranslateRequestDTO toYandexAPITranslateRequestDTO(TranslateRequestDTO translateRequestDTO)
             throws InvalidNumberLanguagesTranslateException {
         List<Language> languages = OptionTranslateParser.parseTranslateLanguages(translateRequestDTO.getTranslateLanguageOptions());
         List<String> sourceWords = SplitUtils.splitLineIntoWords(translateRequestDTO.getSourceText());
 
-        return new YandexAPITranslateRequestDTO(languages.get(0).toString(),
+        return new YandexApiTranslateRequestDTO(languages.get(0).toString(),
                 languages.get(1).toString(),
                 sourceWords);
     }
