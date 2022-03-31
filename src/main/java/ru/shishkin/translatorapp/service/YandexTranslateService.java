@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.shishkin.translatorapp.api.yandex.exception.InvalidNumberLanguagesTranslateException;
+import ru.shishkin.translatorapp.api.yandex.request.TranslateRequestDTO;
 import ru.shishkin.translatorapp.api.yandex.request.YandexAPITranslateRequestDTO;
 import ru.shishkin.translatorapp.api.yandex.response.TranslateResponseDto;
 import ru.shishkin.translatorapp.api.yandex.response.YandexApiTranslateResponseDto;
@@ -45,12 +47,13 @@ public class YandexTranslateService {
         this.restTemplate = restTemplate;
     }
 
-    public TranslateResponseDto translate(YandexAPITranslateRequestDTO yandexAPITranslateRequestDTO,
-                            QueryEntity queryEntity) {
+    public TranslateResponseDto translate(TranslateRequestDTO translateRequestDTO,
+                                          QueryEntity queryEntity) throws InvalidNumberLanguagesTranslateException {
+        YandexAPITranslateRequestDTO yandexAPITranslateRequestDTO =
+                YandexAPITranslateRequestDTO.toYandexAPITranslateRequestDTO(translateRequestDTO);
         YandexApiTranslateResponseDto yandexApiTranslateResponseDto = translateSourceWords(yandexAPITranslateRequestDTO);
+
         create(yandexAPITranslateRequestDTO, yandexApiTranslateResponseDto, queryEntity);
-        //Maybe return TranslateResponseDTO : collect toString()
-        // yandexApiTranslateResponseDto.getTranslatedWords() and put TranslateResponseDTO
         return TranslateResponseDto.toTranslateResponseDto(yandexApiTranslateResponseDto);
     }
 

@@ -1,18 +1,15 @@
 package ru.shishkin.translatorapp.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.shishkin.translatorapp.api.yandex.exception.InvalidNumberLanguagesTranslateException;
 import ru.shishkin.translatorapp.api.yandex.request.TranslateRequestDTO;
-import ru.shishkin.translatorapp.api.yandex.request.YandexAPITranslateRequestDTO;
-import ru.shishkin.translatorapp.api.yandex.response.TranslateResponseDto;
-import ru.shishkin.translatorapp.entity.QueryEntity;
-import ru.shishkin.translatorapp.service.QueryService;
-import ru.shishkin.translatorapp.service.SettingQueryService;
-import ru.shishkin.translatorapp.service.YandexTranslateService;
+import ru.shishkin.translatorapp.service.TranslateService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,18 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/translate")
 @AllArgsConstructor
 public class TranslateController {
-    private final QueryService queryService;
-    private final YandexTranslateService yandexTranslateService;
-    private final SettingQueryService settingQueryService;
+    private TranslateService translateService;
 
     @PostMapping
-    public String translate(@RequestBody TranslateRequestDTO translateRequestDTO,
-                            HttpServletRequest httpServletRequest) throws InvalidNumberLanguagesTranslateException {
-        YandexAPITranslateRequestDTO yandexAPITranslateRequestDTO =
-                YandexAPITranslateRequestDTO.toYandexAPITranslateRequestDTO(translateRequestDTO);
-        QueryEntity queryEntity = queryService.create(httpServletRequest);
-        settingQueryService.create(yandexAPITranslateRequestDTO, queryEntity);
-        TranslateResponseDto translateResponseDto = yandexTranslateService.translate(yandexAPITranslateRequestDTO, queryEntity);
-        return translateResponseDto.getTranslatedWords();
+    public ResponseEntity<String> translate(@RequestBody TranslateRequestDTO translateRequestDTO,
+                                    HttpServletRequest httpServletRequest) {
+        try {
+            return ResponseEntity.ok(translateService.translate(translateRequestDTO, httpServletRequest).getTranslatedWords());
+        } catch (InvalidNumberLanguagesTranslateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
