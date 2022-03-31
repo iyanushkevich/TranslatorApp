@@ -104,7 +104,7 @@ public class YandexTranslateService {
         TranslateEntity translateEntity = new TranslateEntity();
         translateEntity.setSourceWord(sourceWord);
         translateEntity.setTargetWord(targetWord);
-        translateEntity.setQuery(queryEntity);
+        translateEntity.setQueryEntity(queryEntity);
         return translateEntity;
     }
 

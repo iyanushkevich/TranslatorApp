@@ -21,9 +21,8 @@ public class QueryEntity {
     private String ipAddress;
     private String time;
 
-    @Transient
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "queryEntity")
     private SettingQueryEntity settingQueryEntity;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "queryEntity")
     private List<TranslateEntity> translateEntities;
 }

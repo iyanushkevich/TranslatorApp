@@ -22,5 +22,5 @@ public class TranslateEntity {
 
     @ManyToOne
     @JoinColumn(name = "query_id")
-    private QueryEntity query;
+    private QueryEntity queryEntity;
 }
