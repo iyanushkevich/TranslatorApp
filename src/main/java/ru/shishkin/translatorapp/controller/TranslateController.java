@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.shishkin.translatorapp.api.yandex.exception.InvalidNumberLanguagesTranslateException;
+import ru.shishkin.translatorapp.api.yandex.exception.LanguageNotFoundException;
 import ru.shishkin.translatorapp.api.yandex.request.TranslateRequestDTO;
 import ru.shishkin.translatorapp.service.TranslateService;
 
@@ -23,7 +24,7 @@ public class TranslateController {
                                     HttpServletRequest httpServletRequest) {
         try {
             return ResponseEntity.ok(translateService.translate(translateRequestDTO, httpServletRequest).getTranslatedWords());
-        } catch (InvalidNumberLanguagesTranslateException e) {
+        } catch (InvalidNumberLanguagesTranslateException | LanguageNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

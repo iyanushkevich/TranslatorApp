@@ -26,10 +26,4 @@ public class SettingQueryEntity {
     @JoinColumn(name = "query_id")
     private QueryEntity queryEntity;
 
-//    @ManyToOne
-//    @JoinColumns({
-//            @JoinColumn(name = "language_code", referencedColumnName = "source"),
-//            @JoinColumn(name = "language_code", referencedColumnName = "target")
-//    })
-//    private LanguageEntity languageEntity;
 }

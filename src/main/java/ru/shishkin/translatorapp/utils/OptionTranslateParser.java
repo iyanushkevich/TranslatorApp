@@ -1,7 +1,7 @@
 package ru.shishkin.translatorapp.utils;
 
 import ru.shishkin.translatorapp.api.yandex.exception.InvalidNumberLanguagesTranslateException;
-import ru.shishkin.translatorapp.api.yandex.constants.Language;
+import ru.shishkin.translatorapp.entity.LanguageEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,21 +11,15 @@ public class OptionTranslateParser {
     private static final String DELIMITER_LANGUAGES_OPTIONS = "-";
     private static final String INVALID_COUNT_LANGUAGES = "Неверное количество языков для перевода";
 
-    public static List<Language> parseTranslateLanguages(String translationLanguages) throws InvalidNumberLanguagesTranslateException {
-        List<Language> languages = determineLanguages(Arrays.asList(translationLanguages.split(DELIMITER_LANGUAGES_OPTIONS)));
+    public static List<String> parseTranslateLanguages(String translationLanguages) throws InvalidNumberLanguagesTranslateException {
+        List<String> languages = Arrays.asList(translationLanguages.split(DELIMITER_LANGUAGES_OPTIONS));
 
         if (!checkSizeLanguages(languages)) throw new InvalidNumberLanguagesTranslateException(INVALID_COUNT_LANGUAGES);
 
         return languages;
     }
 
-    //To list languagesCodes
-    private static List<Language> determineLanguages(List<String> languageCodes) {
-        return languageCodes.stream()
-                .map(Language::byCode).collect(Collectors.toList());
-    }
-
-    private static boolean checkSizeLanguages(List<Language> languages) {
+    private static boolean checkSizeLanguages(List<String> languages) {
         return languages.size() == 2;
     }
 

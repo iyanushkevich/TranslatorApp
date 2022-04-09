@@ -14,11 +14,9 @@ import java.util.List;
 @Setter
 public class LanguageEntity implements Serializable {
     @Id
+    @Column(name = "code")
     private String code;
     private String name;
-
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageEntity")
-//    private List<SettingQueryEntity> settingQueryEntities;
 
     @Override
     public String toString() {
