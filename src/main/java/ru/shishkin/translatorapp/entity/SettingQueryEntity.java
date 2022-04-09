@@ -17,17 +17,19 @@ public class SettingQueryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "source")
     private String sourceLanguage;
+    @Column(name = "target")
     private String targetLanguage;
 
     @OneToOne
     @JoinColumn(name = "query_id")
     private QueryEntity queryEntity;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "language_code", referencedColumnName = "sourceLanguage"),
-            @JoinColumn(name = "language_code", referencedColumnName = "targetLanguage")
-    })
-    private LanguageEntity languageEntity;
+//    @ManyToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "language_code", referencedColumnName = "source"),
+//            @JoinColumn(name = "language_code", referencedColumnName = "target")
+//    })
+//    private LanguageEntity languageEntity;
 }

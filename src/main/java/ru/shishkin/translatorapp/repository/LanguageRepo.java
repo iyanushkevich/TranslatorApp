@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.shishkin.translatorapp.entity.LanguageEntity;
 
 @Repository
-public interface LanguageRepo extends CrudRepository<LanguageEntity, Long> {
+public interface LanguageRepo extends CrudRepository<LanguageEntity, String> {
 }
