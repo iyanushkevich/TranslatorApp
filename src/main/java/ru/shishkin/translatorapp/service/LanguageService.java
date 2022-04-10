@@ -16,7 +16,6 @@ import java.util.List;
 
 @Service
 @NoArgsConstructor
-@PropertySource("classpath:resttemplate.properties")
 public class LanguageService {
     private YandexRequestService yandexRequestService;
     private LanguageRepo languageRepo;

@@ -20,7 +20,6 @@ import java.util.List;
 
 @Service
 @NoArgsConstructor
-@PropertySource("classpath:resttemplate.properties")
 public class YandexTranslateService {
     private YandexRequestService yandexRequestService;
     private TranslateRepo translateRepo;

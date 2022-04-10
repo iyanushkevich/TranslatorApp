@@ -2,15 +2,12 @@ package ru.shishkin.translatorapp.api.yandex.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.shishkin.translatorapp.api.yandex.response.YandexApiTranslateResponseDto;
 
 @Service
-@PropertySource("classpath:resttemplate.properties")
 public class YandexRequestService {
     private final RestTemplate restTemplate;
     @Value("${header.value.content.type}")
