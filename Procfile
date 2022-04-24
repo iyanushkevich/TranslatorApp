@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar build/libs/TranslatorApp-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar application/build/libs/TranslatorApp-0.0.1-SNAPSHOT.war
