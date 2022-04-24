@@ -1,10 +1,7 @@
 package ru.shishkin.translatorapp.service;
 
-import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.shishkin.translatorapp.api.yandex.request.YandexApiLanguageRequestDto;
 import ru.shishkin.translatorapp.api.yandex.response.YandexApiLanguageResponseDto;
@@ -17,10 +14,10 @@ import java.util.List;
 @Service
 @NoArgsConstructor
 public class LanguageService {
+
     private YandexRequestService yandexRequestService;
     private LanguageRepo languageRepo;
-    @Value("${yandex.language.path}")
-    private String PATH;
+    private String PATH = "https://translate.api.cloud.yandex.net/translate/v2/languages";
 
     @Autowired
     public LanguageService(YandexRequestService yandexRequestService, LanguageRepo languageRepo) {

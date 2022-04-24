@@ -24,8 +24,7 @@ public class YandexTranslateService {
     private YandexRequestService yandexRequestService;
     private TranslateRepo translateRepo;
 
-    @Value("${yandex.translate.path}")
-    private String PATH;
+    private String PATH = "https://translate.api.cloud.yandex.net/translate/v2/translate";
 
     @Autowired
     public YandexTranslateService(TranslateRepo translateRepo, YandexRequestService yandexRequestService) {

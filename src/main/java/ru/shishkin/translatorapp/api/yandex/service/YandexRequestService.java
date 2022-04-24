@@ -2,6 +2,7 @@ package ru.shishkin.translatorapp.api.yandex.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -9,15 +10,13 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class YandexRequestService {
+
     private final RestTemplate restTemplate;
-    @Value("${header.value.content.type}")
-    private String HEADER_VALUE_CONTENT_TYPE;
-    @Value("${header.name.content.type}")
-    private String HEADER_NAME_CONTENT_TYPE;
-    @Value("${header.name.authorization}")
-    private String HEADER_NAME_AUTHORIZATION;
-    @Value("${header.value.authorization}")
-    private String HEADER_VALUE_AUTHORIZATION;
+    private String HEADER_VALUE_CONTENT_TYPE = "application/json; utf-8";
+    private String HEADER_NAME_CONTENT_TYPE = "Content-Type";
+    private String HEADER_NAME_AUTHORIZATION = "Authorization";
+    private String HEADER_VALUE_AUTHORIZATION = "Api-key AQVNyjDewia7jOvC78FqZ_gIlpmZIms2siBnRQBP";
+
 
     @Autowired
     public YandexRequestService(RestTemplate restTemplate) {

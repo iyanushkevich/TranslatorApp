@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/translate")
 @AllArgsConstructor
 public class TranslateController {
-    private TranslateService translateService;
+
+    private final TranslateService translateService;
+
     @PostMapping
     public ResponseEntity<String> translate(@RequestBody TranslateRequestDTO translateRequestDTO,
-                                    HttpServletRequest httpServletRequest) {
+                                            HttpServletRequest httpServletRequest) {
         try {
             return ResponseEntity.ok(translateService.translate(translateRequestDTO, httpServletRequest).getTranslatedWords());
         } catch (InvalidNumberLanguagesTranslateException | LanguageNotFoundException e) {
